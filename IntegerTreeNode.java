@@ -1,7 +1,7 @@
 public class IntegerTreeNode {
-	int value;
-	IntegerTreeNode left;
-	IntegerTreeNode right;
+	private int value;
+	private IntegerTreeNode left;
+	private IntegerTreeNode right;
 	
 	public IntegerTreeNode(int value) {
 		this.value = value;
@@ -9,7 +9,11 @@ public class IntegerTreeNode {
 		this.right = null;
 	}
 	
-	public add(int newNumber) {
+	public int getValue() {
+		return value;
+	}
+	
+	public void add(int newNumber) {
 		if(newNumber > this.value) {
 			if(right == null) {
 				right = new IntegerTreeNode(newNumber);
@@ -28,12 +32,13 @@ public class IntegerTreeNode {
 	public boolean contains(int n) {
 		if(n == this.value) {
 			return true;
-		} else if(n > this.value) {
+		} else if(n > this.value && this.right != null) {
 			return right.contains(n);
-		} else {
+		} else if(n < this.value && this.left != null){
 			return left.contains(n);
-		}
+		} else {
 		return false;
+		}
 	}
 	
 	public int getMax() {
@@ -52,6 +57,37 @@ public class IntegerTreeNode {
 		} else {
 			return left.getMin();
 		}
+	}
+	
+	public String toString() {
+		String result = "";
+		result += "[" + value + " L";
+		if(left != null) {
+			result += left.toString(); 
+		} else {
+			result += "[]";
+		}
+		result += " R";
+		if(right != null) {
+			result += right.toString();
+		} else {
+			result += "[]";
+		}
+		result += "]";
+		return result;
+	}
+
+	public String toShortString() {
+		String result = "";
+		result += "[" + value;
+		if(left != null) {
+			result += " " + left.toShortString();
+		}
+		if (right != null) {
+			result += " " + right.toShortString();
+		}
+		result += "]";
+		return result;
 	}
 	
 }
